@@ -1,3 +1,15 @@
+#React #create_react_app #react-thunks #poke-api #public-api
+
+-> Index page
+![screnshoot-INDEX](https://github.com/BillyVector117/react-redux-poke-api-simple/blob/main/Screenshot_1.png)
+->Getting data
+![screnshoot-data](https://github.com/BillyVector117/react-redux-poke-api-simple/blob/main/Screenshot_2.png)
+
+
+
+Thanks Bluuweb!
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
