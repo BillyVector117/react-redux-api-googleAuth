@@ -1,65 +1,74 @@
-import axios from 'axios'
+import axios from "axios";
 
-// contantes
+// CONSTANTS
 const dataInicial = {
-    array: [],
-    offset: 0 // el offset tiene su estado inicial en 0, incrementara en 20 en 20 despues.
+  array: [],
+  offset: 0, // Will increase +20 for each nextPokemonAction() call
+  ready: false
+};
+
+// TYPES (Specific name)
+const GET_POKEMON_EXITO = "GET_POKEMON_EXITO";
+const NEXT_POKEMON_EXITO = "NEXT_POKEMON_EXITO";
+
+// REDUCERS
+export default function pokeReducer(state = dataInicial, action) {
+  // Depending on Dispatch() Action type is the result case to execute
+  switch (action.type) {
+    case GET_POKEMON_EXITO:
+      // Success case: Copy 'state' adding payload result (axios-data)
+      return { ...state, array: action.payload }; // Modifying 'dataInicial' state
+    case NEXT_POKEMON_EXITO: // En caso de dar siguiente..
+      return {
+        ...state,
+        array: action.payload.array,
+        offset: action.payload.offset,
+        ready: true
+      }; // Sera el state modificado y el array modificado (lo tiene el payload)
+
+    default:
+      return state; // retornar el state inicial / modificado, en caso de no enviarle un type
+  }
 }
 
-
-// types
-const GET_POKEMON_EXITO = 'GET_POKEMON_EXITO'
-const NEXT_POKEMON_EXITO = 'NEXT_POKEMON_EXITO'
-
-// reducer
-export default function pokeReducer(state = dataInicial, action){
-    // Switch leera la accion (axios(getPokemonAction)), luego el type((GET_POKEMON_EXITO)) y luego genera un switch case
-    switch(action.type) {
-        // Si el caso del type es EXITO
-       case GET_POKEMON_EXITO:
-           // Copiar el state con su data inicial (array), luego igualar ese array con action.payload
-           return {...state, array: action.payload} // Acción que modifica el state
-           // Al obtener exitosamente el objeto de getPokemonAction, la dataInicial se llenara con esos datos (payload)
-        case NEXT_POKEMON_EXITO: // En caso de dar siguiente..
-            return {...state, array: action.payload.array, offset: action.payload.offset} // Sera el state modificado y el array modificado (lo tiene el payload)
-
-        default:
-            return state // retornar el state inicial / modificado, en caso de no enviarle un type
-        }
-}
-// acciones
+// ACTIONS (Two functions in each Action in case needs a params (in first function))
 export const getPokemonAction = () => async (dispatch, getState) => {
-    // console.log('getState', getState().pokemones.offset) // Accede a los datos iniciales de pokemones (array vacio)
-    const offset = getState().pokemones.offset
-    try {
-        // Intenta la llamada a la API
-        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`)
-
-        // axios genera la data en res.data + la propiedad que queremos leer (results)
-        dispatch({
-            type: GET_POKEMON_EXITO,
-            payload: res.data.results // Lista que contiene los resultados (objeto)
-        })
-    } catch (error) {
-        console.log(error)
-    }
-}
-    // En cada acción de 'getPokemonAcion' tambien se disparara esta función para que cambie dinamicamente el valor de offset de 20 en 20
+  // console.log('getState', getState().pokemones.offset) // Accede a los datos iniciales de pokemones (array vacio)
+  const offset = getState().pokemones.offset;
+  // API Call
+  try {
+    const res = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`
+    );
+    // Set and send data to REDUCER case, 'payload' contains the Data-array ('results')
+    dispatch({
+      type: GET_POKEMON_EXITO,
+      payload: res.data.results, // Axios Data is saved as res.data.results ()
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+//
 export const nextPokemonAction = () => async (dispatch, getState) => {
-    const offset = getState().pokemones.offset // offstate es 0
-    const next = offset + 20
+  // 'offset' key starts in 0
+  const offset = getState().pokemones.offset; // 'pokemones' refers to dataInitial
+  const next = offset + 20;
 
-    try {
-        const  res = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${next}&limit=20`)
-        dispatch({
-            type: NEXT_POKEMON_EXITO,
-            payload: { // Envia en el payload tanto los datos del fetch, como el offset modificado (valor de 20 en 20)
-                array: res.data.results, // Resultados a partir del 20
-                offset: next
-            }
-        })
-    } catch (error) {
-        console.log(error)
-
-    }
-}
+  try {
+    // API Call
+    const res = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon?offset=${next}&limit=20`
+    );
+    dispatch({
+      type: NEXT_POKEMON_EXITO,
+      // Send to Reducer case the axios-result (next 20 items) and the new offset value
+      payload: {
+        array: res.data.results, // res.data.results is an array
+        offset: next,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

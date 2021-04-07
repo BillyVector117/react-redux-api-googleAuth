@@ -1,23 +1,23 @@
-import { createStore, combineReducers, compose, applyMiddleware} from 'redux'
-import thunk from 'redux-thunk'
-// En este archivo se mezclan todos los modulos de ducks para poderlos usar en los componentes
+// Here all Ducks modules are mixed to use in any component
+import { createStore, combineReducers, compose, applyMiddleware } from "redux";
+import thunk from "redux-thunk"; // Allows to use Promises
+// Call pokeDucks REDUCER (Add more Reducers if exist)
+import pokeReducer from "./pokeDucks";
 
-
-// Llamada al REDUCER de pokeDucks (o de todos los archivos que usen la métodologia ducks)
-import pokeReducer from './pokeDucks'
-
-
+// Import all REDUCERS() of each Duck files
 const rootReducer = combineReducers({
-    // IMPORTANT, nombre a leer en los componentes
-    pokemones: pokeReducer // pokeReducer es un método que contiene el array con los datos del fetch
+  // 'pokemones' is the name to access 'pokeReducer' Reducer method through Frontend, and can be access thorugh any component
+  pokemones: pokeReducer, // pokeReducer contains the main state (data captures with axios), depending Switch-case
+});
 
-})
-
-// Configuración de extensión para redux
+// Redux extension config
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// Cofnigurar store usando los modulos importados
-export default function generateStore(){
-    const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk))) 
-    return store;
+// Generate and export Store module (contains all Reducers)
+export default function generateStore() {
+  const store = createStore(
+    rootReducer,
+    composeEnhancers(applyMiddleware(thunk))
+  );
+  return store; 
 }
