@@ -1,0 +1,5 @@
+redux: Core de redux
+react-redux: Libreria core para usar redux en React
+redux-devtools: se visualizen herramientas de desarrollo (extensiones)
+redux-thunk: Usar redux con Promises
+axios: Llamar APIs
