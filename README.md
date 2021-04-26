@@ -1,13 +1,22 @@
-#React #create_react_app #react-thunks #poke-api #public-api
+#React #create_react_app #redux #react-redux #react-thunks #googleAuth #fireStore #Storage #poke-api #public-api 
 
--> Index page
-![screnshoot-INDEX](https://github.com/BillyVector117/react-redux-poke-api-simple/blob/main/Screenshot_1.png)
+-> login page-Google Auth
+![screnshoot-googleAuth](https://github.com/BillyVector117/react-redux-api-googleAuth/blob/main/Screenshot_1.png)
 ->Getting data
-![screnshoot-data](https://github.com/BillyVector117/react-redux-poke-api-simple/blob/main/Screenshot_2.png)
-
+![screnshoot-Index](https://github.com/BillyVector117/react-redux-api-googleAuth/blob/main/Screenshot_2.png)
+-> Getting aditional info.
+![screnshoot-Axios](https://github.com/BillyVector117/react-redux-api-googleAuth/blob/main/Screenshot_3.png)
+->Getting aditional info-2
+![screnshoot-data](https://github.com/BillyVector117/react-redux-api-googleAuth/blob/main/Screenshot_4.png)
+-> update username / image
+![screnshoot-update](https://github.com/BillyVector117/react-redux-api-googleAuth/blob/main/Screenshot_5.png)
+->Updated username / image
+![screnshoot-update2](https://github.com/BillyVector117/react-redux-api-googleAuth/blob/main/Screenshot_6.png)
 
 
 Thanks Bluuweb!
+
+
 
 
 # Getting Started with Create React App
