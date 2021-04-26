@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -59,6 +60,20 @@ function App() {
     </Router>
   ) : (
     <div>Loading...</div>
+=======
+import Pokemones from "./components/Pokemones";
+import { Provider } from "react-redux"; // 'Redux-core'
+import generateStore from "./redux/store";
+function App() {
+  const store = generateStore(); // Contains all Reducers
+  return (
+    // Redux Wraps all application thorugh <Provider> Tag
+    <div className="App">
+      <Provider store={store}>
+        <Pokemones />
+      </Provider>
+    </div>
+>>>>>>> 5649a24db8bc6b3e2cfc5d0e2ccad4dec3a57dd3
   );
 }
 
